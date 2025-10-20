@@ -1,0 +1,24 @@
+{
+  "name": "Free Online Tools by Dhiraj Gurung",
+  "short_name": "Dhiraj Tools",
+  "description": "Free online calculators, converters, and smart digital utilities by Dhiraj Gurung.",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "lang": "en",
+  "orientation": "portrait-primary"
+}
