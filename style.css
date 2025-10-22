@@ -272,3 +272,21 @@ body {
     details summary{font-weight:600;cursor:pointer}
     .tool-link{display:inline-block;margin-top:14px;padding:10px 16px;background:rgb(0, 94, 255);color:#fff;border-radius:10px;text-decoration:none;font-weight:600}
     
+.tools {
+    padding: 20px;
+    margin: 20px;
+  }
+
+  .tools a {
+    text-decoration: none;
+    color: #333;
+  }
+
+  .tools h2 {
+    margin-bottom: 8px;
+  }
+
+  .tools p {
+    color: #555;
+    line-height: 1.6;
+  }
