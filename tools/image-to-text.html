@@ -1,351 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image to Text - Extract Text from Image</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        header {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            text-align: center;
-        }
-
-        
-        h1 {
-            font-size: 32px;
-            color: #0f172a;
-            margin-bottom: 8px;
-        }
-
-        .subtitle {
-            color: #64748b;
-            font-size: 16px;
-        }
-
-        .upload-area {
-            background: white;
-            border: 3px dashed #cbd5e1;
-            border-radius: 16px;
-            padding: 60px 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-            margin-bottom: 30px;
-        }
-
-        .upload-area:hover:not(.processing) {
-            border-color: #94a3b8;
-            background: #f8fafc;
-        }
-
-        .upload-area.drag-over {
-            border-color: #2563eb;
-            background: #eff6ff;
-        }
-
-        .upload-area.processing {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .upload-icon {
-            background: #dbeafe;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .upload-icon svg {
-            width: 40px;
-            height: 40px;
-            color: #2563eb;
-        }
-
-        .upload-text {
-            font-size: 18px;
-            font-weight: 500;
-            color: #334155;
-            margin-bottom: 8px;
-        }
-
-        .upload-hint {
-            color: #64748b;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .select-button {
-            background: #2563eb;
-            color: white;
-            border: none;
-            padding: 14px 32px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        .select-button:hover {
-            background: #1d4ed8;
-        }
-
-        .select-button:disabled {
-            background: #94a3b8;
-            cursor: not-allowed;
-        }
-
-        .spinner {
-            border: 4px solid #e2e8f0;
-            border-top: 4px solid #2563eb;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .processing-text {
-            font-size: 18px;
-            font-weight: 500;
-            color: #334155;
-            margin-bottom: 8px;
-        }
-
-        .processing-hint {
-            color: #64748b;
-            font-size: 14px;
-        }
-
-        .results-section {
-            display: none;
-        }
-
-        .results-section.visible {
-            display: block;
-        }
-
-        .results-header {
-            font-size: 24px;
-            font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .results-header svg {
-            width: 28px;
-            height: 28px;
-            color: #2563eb;
-        }
-
-        .result-card {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2e8f0;
-        }
-
-        .result-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 16px;
-        }
-
-        .result-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .success-icon {
-            color: #16a34a;
-            flex-shrink: 0;
-        }
-
-        .filename {
-            font-weight: 500;
-            color: #0f172a;
-            margin-bottom: 4px;
-        }
-
-        .confidence {
-            font-size: 13px;
-            color: #64748b;
-        }
-
-        .copy-button {
-            background: transparent;
-            border: none;
-            color: #64748b;
-            cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .copy-button:hover {
-            background: #f1f5f9;
-            color: #0f172a;
-        }
-
-        .copy-button svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        .text-content {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 16px;
-        }
-
-        .text-content pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            color: #1e293b;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .no-text-alert {
-            background: #fef3c7;
-            border: 1px solid #fde68a;
-            border-radius: 10px;
-            padding: 16px;
-            display: flex;
-            gap: 12px;
-        }
-
-        .warning-icon {
-            color: #d97706;
-            flex-shrink: 0;
-        }
-
-        .alert-content {
-            flex: 1;
-        }
-
-        .alert-title {
-            font-size: 14px;
-            font-weight: 500;
-            color: #92400e;
-            margin-bottom: 4px;
-        }
-
-        .alert-message {
-            font-size: 14px;
-            color: #b45309;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            color: #64748b;
-            font-size: 14px;
-        }
-
-        input[type="file"] {
-            display: none;
-        }
-
-        .action-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .start-over-button {
-            background: #64748b;
-            color: white;
-            border: none;
-            padding: 14px 32px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        .start-over-button:hover {
-            background: #475569;
-        }
-
-        @media (max-width: 640px) {
-            h1 {
-                font-size: 24px;
-            }
-
-            .upload-area {
-                padding: 40px 20px;
-            }
-
-            .result-header {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .copy-button {
-                align-self: flex-start;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2524936656507529"
+     crossorigin="anonymous"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image to Text Converter - Extract Text from Images (OCR)</title> <meta name="description" content="Free Image to Text (OCR) — extract printed or handwritten text from images instantly. Fast, private, and easy." /> <link rel="canonical" href="https://dhirajgurung.com.np/tools/image-to-text.html" /> <link rel="stylesheet" href="https://dhirajgurung.com.np/style.css" /> <link rel="icon" href="https://dhirajgurung.com.np/favicon.ico" sizes="any" /> <link rel="icon" type="image/png" sizes="32x32" href="https://dhirajgurung.com.np/images/favicon-32x32.png" /> <link rel="icon" type="image/png" sizes="192x192" href="https://dhirajgurung.com.np/images/favicon-192x192.png" /> <link rel="apple-touch-icon" href="https://dhirajgurung.com.np/images/apple-touch-icon.png" /> <link rel="manifest" href="https://dhirajgurung.com.np/site.webmanifest" /> <meta name="theme-color" content="#ffffff" /> <meta name="apple-mobile-web-app-title" content="DhirajGurung" /> <meta name="application-name" content="DhirajGurung" /> <!-- Open Graph / Twitter --> <meta property="og:type" content="website" /> <meta property="og:title" content="Image to Text Converter - Extract Text from Images (OCR)" /> <meta property="og:description" content="Free OCR tool — extract text from photos, scans and handwritten notes. Fast, private and no sign-up required." /> <meta property="og:url" content="https://dhirajgurung.com.np/tools/image-to-text.html" /> <meta property="og:site_name" content="dhirajgurung.com.np" /> <meta property="og:image" content="https://dhirajgurung.com.np/images/image-to-text.jpg" /> <meta property="og:image:alt" content="Screenshot of Image to Text OCR tool" /> <meta name="twitter:card" content="summary_large_image" /> <meta name="twitter:title" content="Image to Text Converter - Extract Text from Images (OCR)" /> <meta name="twitter:description" content="Free OCR tool — extract text from printed and handwritten images quickly and securely in your browser." /> <meta name="twitter:image" content="https://dhirajgurung.com.np/images/image-to-text.jpg" /> <!-- Schema: Breadcrumb, WebApplication, Article, FAQ --> <script type="application/ld+json"> { "@context":"https://schema.org", "@type":"BreadcrumbList", "itemListElement":[ {"@type":"ListItem","position":1,"name":"Home","item":"https://dhirajgurung.com.np/"}, {"@type":"ListItem","position":2,"name":"Tools","item":"https://dhirajgurung.com.np/tools.html"}, {"@type":"ListItem","position":3,"name":"Image to Text","item":"https://dhirajgurung.com.np/tools/image-to-text.html"} ] } </script> <script type="application/ld+json"> { "@context":"https://schema.org", "@type":["WebApplication","SoftwareApplication"], "name":"Image to Text Converter", "url":"https://dhirajgurung.com.np/tools/image-to-text.html", "description":"Extract editable text from images (printed or handwritten) using OCR. Free and simple — works in your browser.", "applicationCategory":"UtilitiesApplication", "softwareVersion":"1.0", "operatingSystem":"All", "author": { "@type":"Person", "name":"Dhiraj Gurung", "url":"https://gravatar.com/dhirajcodes", "jobTitle":"Content Strategist & OCR Technology Writer" }, "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} } </script> <script type="application/ld+json"> { "@context":"https://schema.org", "@type":"Article", "headline":"Image to Text Converter - Extract Text from Images (OCR)", "description":"Free Image to Text OCR — extract printed and handwritten text from photos and scanned documents. No signup required. Private and fast.", "image":"https://dhirajgurung.com.np/images/image-to-text.jpg", "author":{"@type":"Person","name":"Dhiraj Gurung"}, "publisher":{"@type":"Organization","name":"dhirajgurung.com.np","logo":{"@type":"ImageObject","url":"https://dhirajgurung.com.np/images/logo.png"}}, "datePublished":"2025-10-29", "dateModified":"2025-10-29", "mainEntityOfPage":{"@type":"WebPage","@id":"https://dhirajgurung.com.np/tools/image-to-text.html"} } </script> <script type="application/ld+json"> { "@context":"https://schema.org", "@type":"FAQPage", "mainEntity":[ { "@type":"Question", "name":"What file types are supported?", "acceptedAnswer":{"@type":"Answer","text":"Most common image types (JPG, JPEG, PNG). For best results use high-resolution photos or scans."} }, { "@type":"Question", "name":"Can the tool read handwritten notes?", "acceptedAnswer":{"@type":"Answer","text":"Yes — the OCR supports many handwritten notes but accuracy depends on legibility. Printed text is usually more accurate."} }, { "@type":"Question", "name":"Is my data private?", "acceptedAnswer":{"@type":"Answer","text":"Images are sent to an OCR API for processing. Avoid uploading highly sensitive documents. See the privacy section on the site for details."} }, { "@type":"Question", "name":"Do I need to sign up?", "acceptedAnswer":{"@type":"Answer","text":"No sign-up is required — the tool is free and ready to use."} } ] } </script>
 </head>
 <body>
-    <div class="container">
-        <header>
+  <header>
+    
+    <a href="/">
+      <img src="https://dhirajgurung.com.np/images/logo.png" alt="DhirajGurung logo" loading="lazy">
+      Free Online Tools by Dhiraj Gurung
+    </a>
+  
+  </header>
+
+  <main>
+       <div class="container">
+        
             
-            <h1>Text Extractor</h1>
-            <p class="subtitle">Extract text from handwritten notes with AI - Free & No Sign-up Required</p>
-        </header>
+            <h1>Image to Text</h1>
+            <p class="subtitle">Extract text from images with AI - Free & No Sign-up Required</p>
+        
 
         <div class="upload-area" id="uploadArea">
             <input type="file" id="fileInput" accept="image/*">
@@ -355,11 +33,11 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                     </svg>
                 </div>
-                <p class="upload-text">Drop your handwritten note here</p>
+                <p class="upload-text">Drop your Images or Handwritten notes here</p>
                 <p class="upload-hint">or click the button below to browse files</p>
                 <div class="action-buttons">
                     <button class="select-button" id="uploadButton">Select Image</button>
-                    <button class="start-over-button" id="startOverButton" style="display: none;">Start Over</button>
+                    <button class="start-over-button" id="startOverButton" style="display: none; border: 1px solid black; margin: 10px">Start Over</button>
                 </div>
             </div>
             <div id="processingContent" style="display: none;">
@@ -379,227 +57,142 @@
             <div id="resultsContainer"></div>
         </div>
 
-        <footer>
-            <p>Upload images of handwritten notes to extract the text. All processing is done securely.</p>
-        </footer>
+        <div class="note">
+            <p>All processing is done securely.</p>
+        </div>
+    </div> 
+<section id="features" aria-labelledby="features-heading">
+  <h2 id="features-heading">Features</h2>
+  <div class="features" role="list">
+    <div class="feat" role="listitem">
+      <h3>Extract Printed & Handwritten Text</h3>
+      <p>Supports both machine-printed text and many styles of handwriting. Results vary by clarity and handwriting style.</p>
     </div>
+    <div class="feat" role="listitem">
+      <h3>Multiple Images</h3>
+      <p>Upload multiple photos — each image is processed and returned as editable text blocks you can copy or download.</p>
+    </div>
+    <div class="feat" role="listitem">
+      <h3>Quick & User-Friendly</h3>
+      <p>Simple drag & drop, preview thumbnails, and one-click extraction — designed to be fast and accessible on mobile and desktop.</p>
+    </div>
+    <div class="feat" role="listitem">
+      <h3>Copy, Edit & Download</h3>
+      <p>Copy extracted text to clipboard instantly; you can edit results in your own editor or download them as a .txt file.</p>
+    </div>
+  </div>
+</section>
 
-    <script>
-        const uploadArea = document.getElementById('uploadArea');
-        const fileInput = document.getElementById('fileInput');
-        const uploadButton = document.getElementById('uploadButton');
-        const startOverButton = document.getElementById('startOverButton');
-        const uploadContent = document.getElementById('uploadContent');
-        const processingContent = document.getElementById('processingContent');
-        const resultsSection = document.getElementById('resultsSection');
-        const resultsContainer = document.getElementById('resultsContainer');
+<section class="howto" aria-labelledby="how-to">
+  <h2 id="how-to">How to Use</h2>
+  <ol>
+    <li>Click <strong>Select Images</strong> or drag & drop image files into the upload area.</li>
+    <li>Preview your selected images. Remove any unwanted images before extraction.</li>
+    <li>Click <strong>Extract Text</strong> to start OCR. Wait for processing to complete.</li>
+    <li>Review the extracted text blocks. Use the <strong>Copy</strong> or <strong>Download</strong> buttons to save results.</li>
+  </ol>
+  <p class="small" style="margin-top:8px;">Supported: JPG, JPEG, PNG, and most common image types. For best results crop out unnecessary backgrounds and ensure text is legible.</p>
+  <div style="display: flex; justify-content: center; padding: 20px auto;">
+            <img style="width: 100%; max-width: 600px; height: auto;" src="https://dhirajgurung.com.np/images/image-to-text.jpg"  title="Image to Text Extractor" alt="Extract text from images or handwritten notes" loading="lazy">
+            </div>
+<p style="margin-top:20px;">
+  Need to convert images into a document instead? Try our 
+  <a href="https://dhirajgurung.com.np/tools/jpg-to-pdf.html" title="Free JPG to PDF Converter by Dhiraj Gurung">
+    free JPG to PDF converter
+  </a>
+  — instantly turn your photos into shareable, high-quality PDFs.
+</p>
 
-        let extractedResults = [];
+</section>
 
-        // Only trigger file input when clicking the upload button
-        uploadButton.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent event from bubbling up to upload area
-            if (!uploadArea.classList.contains('processing')) {
-                fileInput.click();
-            }
-        });
+<section class="author-bio" style="margin-top:18px;">
+  <h2>About the Author</h2>
+  <div style="display:flex; gap:12px; align-items:flex-start; margin-top:10px;">
+    <img src="https://dhirajgurung.com.np/images/dhiraj-gurung.jpg" alt="Dhiraj Gurung" style="width:100px; height:100px; border-radius:10px; object-fit:cover;">
+    <div>
+      <p><strong>Dhiraj Gurung</strong><br><span class="small">Web Developer & OCR Technology Writer — Nepal</span></p>
+      <p class="small">Creator of simple, privacy-minded web tools. Connect on <a href="https://www.linkedin.com/in/dhiraj-gurung-85050738b/" target="_blank" rel="noopener">LinkedIn</a> or view projects on <a href="https://github.com/dhiraj7-star" target="_blank" rel="noopener">GitHub</a>.</p>
+    </div>
+  </div>
+</section>
 
-        // Start Over button functionality
-        startOverButton.addEventListener('click', () => {
-            extractedResults = [];
-            renderResults();
-            fileInput.value = '';
-            startOverButton.style.display = 'none';
-        });
+<section class="faq" aria-labelledby="faq-heading" style="margin-top:18px;">
+  <h2 id="faq-heading">Frequently Asked Questions</h2>
 
-        uploadArea.addEventListener('dragenter', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (!uploadArea.classList.contains('processing')) {
-                uploadArea.classList.add('drag-over');
-            }
-        });
+  <details>
+    <summary>What file types are supported?</summary>
+    <div style="margin-top:8px;">
+      <p>We accept the most common image formats — JPG, PNG, JPEG, and others. If you have a PDF, convert pages to images first or use a separate PDF OCR tool.</p>
+    </div>
+  </details>
 
-        uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-        });
+  <details>
+    <summary>Can this read handwritten notes?</summary>
+    <div style="margin-top:8px;">
+      <p>Yes — the tool attempts to read handwritten text. Accuracy depends on legibility, contrast and handwriting style. For cursive or messy handwriting, results may require manual correction.</p>
+    </div>
+  </details>
 
-        uploadArea.addEventListener('dragleave', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            uploadArea.classList.remove('drag-over');
-        });
+  <details>
+    <summary>Is my data private?</summary>
+    <div style="margin-top:8px;">
+      <p>Images are submitted to a third-party OCR API for text extraction. Avoid uploading highly sensitive documents. Do not use this tool for confidential or regulated content unless you confirm the processing policy on the privacy page.</p>
+    </div>
+  </details>
 
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            uploadArea.classList.remove('drag-over');
+  <details>
+    <summary>Do I need to sign up or pay?</summary>
+    <div style="margin-top:8px;">
+      <p>No signup or payment is required for basic use. The service is free to use with reasonable limits.</p>
+    </div>
+  </details>
 
-            if (!uploadArea.classList.contains('processing')) {
-                const files = e.dataTransfer.files;
-                if (files.length > 0) {
-                    handleFile(files[0]);
-                }
-            }
-        });
+  <details>
+    <summary>Why is the text inaccurate sometimes?</summary>
+    <div style="margin-top:8px;">
+      <p>OCR accuracy depends on image quality: lighting, skew, resolution, and the font or handwriting. Try a clearer photo or scan, crop to the text area, and retry for better results.</p>
+    </div>
+  </details>
+  
+<p style="margin-top:24px;">
+  Want to understand how Optical Character Recognition actually works? 
+  Check out the 
+  <a href="https://en.wikipedia.org/wiki/Optical_character_recognition" target="_blank" rel="noopener noreferrer" title="Wikipedia: Optical Character Recognition (OCR)">
+    OCR page on Wikipedia
+  </a> 
+  for an in-depth explanation of this technology.
+</p>
 
-        fileInput.addEventListener('change', (e) => {
-            if (e.target.files.length > 0) {
-                handleFile(e.target.files[0]);
-            }
-        });
-
-        async function handleFile(file) {
-            if (!file.type.startsWith('image/')) {
-                alert('Please select an image file');
-                return;
-            }
-
-            uploadArea.classList.add('processing');
-            uploadContent.style.display = 'none';
-            processingContent.style.display = 'block';
-
-            try {
-                const reader = new FileReader();
-                reader.onload = async (e) => {
-                    try {
-                        const imageData = e.target.result;
-                        const base64Data = imageData.split(',')[1] || imageData;
-
-                        const formData = new FormData();
-                        formData.append('base64Image', `data:image/jpeg;base64,${base64Data}`);
-                        formData.append('language', 'eng');
-                        formData.append('isOverlayRequired', 'false');
-                        formData.append('detectOrientation', 'true');
-                        formData.append('scale', 'true');
-                        formData.append('OCREngine', '2');
-
-                        const response = await fetch('https://api.ocr.space/parse/image', {
-                            method: 'POST',
-                            headers: {
-                                'apikey': 'K87847422888957',
-                            },
-                            body: formData,
-                        });
-
-                        const result = await response.json();
-
-                        if (result.IsErroredOnProcessing) {
-                            throw new Error(result.ErrorMessage?.[0] || 'OCR processing failed');
-                        }
-
-                        const extractedText = result.ParsedResults?.[0]?.ParsedText || '';
-                        const lines = result.ParsedResults?.[0]?.TextOverlay?.Lines || [];
-                        const confidenceScore = lines.length > 0
-                            ? lines.reduce((acc, line) => acc + (line.MaxConfidence || 0), 0) / lines.length
-                            : null;
-
-                        addResult({
-                            id: Date.now().toString(),
-                            filename: file.name,
-                            text: extractedText.trim(),
-                            confidence: confidenceScore,
-                        });
-
-                        fileInput.value = '';
-                    } catch (error) {
-                        console.error('Error processing image:', error);
-                        alert('Failed to process image: ' + error.message);
-                    } finally {
-                        uploadArea.classList.remove('processing');
-                        uploadContent.style.display = 'block';
-                        processingContent.style.display = 'none';
-                    }
-                };
-
-                reader.onerror = () => {
-                    alert('Failed to read file');
-                    uploadArea.classList.remove('processing');
-                    uploadContent.style.display = 'block';
-                    processingContent.style.display = 'none';
-                };
-
-                reader.readAsDataURL(file);
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred: ' + error.message);
-                uploadArea.classList.remove('processing');
-                uploadContent.style.display = 'block';
-                processingContent.style.display = 'none';
-            }
-        }
-
-        function addResult(result) {
-            extractedResults.unshift(result);
-            renderResults();
-            startOverButton.style.display = 'inline-block';
-        }
-
-        function renderResults() {
-            if (extractedResults.length === 0) {
-                resultsSection.classList.remove('visible');
-                return;
-            }
-
-            resultsSection.classList.add('visible');
-            resultsContainer.innerHTML = extractedResults.map(result => `
-                <div class="result-card">
-                    <div class="result-header">
-                        <div class="result-info">
-                            <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <div>
-                                <p class="filename">${escapeHtml(result.filename)}</p>
-                                ${result.confidence ? `<p class="confidence">Confidence: ${Math.round(result.confidence)}%</p>` : ''}
-                            </div>
-                        </div>
-                        <button class="copy-button" onclick="copyToClipboard('${result.id}', \`${escapeHtml(result.text).replace(/`/g, '\\`')}\`)">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
-                            </svg>
-                            <span id="copy-text-${result.id}">Copy</span>
-                        </button>
-                    </div>
-                    ${result.text ? `
-                        <div class="text-content">
-                            <pre>${escapeHtml(result.text)}</pre>
-                        </div>
-                    ` : `
-                        <div class="no-text-alert">
-                            <svg class="warning-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-                            </svg>
-                            <div class="alert-content">
-                                <p class="alert-title">No text detected</p>
-                                <p class="alert-message">Try uploading a clearer image with visible text</p>
-                            </div>
-                        </div>
-                    `}
-                </div>
-            `).join('');
-        }
-
-        function copyToClipboard(id, text) {
-            navigator.clipboard.writeText(text).then(() => {
-                const copyTextElement = document.getElementById(`copy-text-${id}`);
-                const originalText = copyTextElement.innerHTML;
-                copyTextElement.innerHTML = 'Copied';
-                setTimeout(() => {
-                    copyTextElement.innerHTML = originalText;
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy:', err);
-                alert('Failed to copy text to clipboard');
-            });
-        }
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-    </script>
+</section>
+  </main>
+<footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h4>Quick Links</h4>
+        <a href="https://dhirajgurung.com.np/tools.html">Tools</a>
+        <a href="https://dhirajgurung.com.np/about.html">About</a>
+        <a href="https://dhirajgurung.com.np/contact.html">Contact</a>
+        <a href="https://dhirajgurung.com.np/faq.html">FAQ</a>
+      </div>
+      <div class="footer-column">
+        <h4>Important Pages</h4>
+        <a href="https://dhirajgurung.com.np/privacy-policy.html">Privacy Policy</a>
+        <a href="https://dhirajgurung.com.np/disclaimer.html">Disclaimer</a>
+        <a href="https://dhirajgurung.com.np/terms-of-use.html">Terms of Use</a>
+      </div>
+    </div>
+    <div class="footer-text">
+       <p id="copyright"></p>
+      </div> 
+  </footer>
+  <script src="https://dhirajgurung.com.np/tools/itt-script.js"></script>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  let copyrightElement = document.getElementById("copyright");
+  if (copyrightElement) {
+    copyrightElement.textContent = `© ${new Date().getFullYear()} dhirajgurung.com.np`;
+  }
+});
+</script>
 </body>
 </html>
