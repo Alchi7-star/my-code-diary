@@ -1,4 +1,3 @@
-
         const uploadArea = document.getElementById('uploadArea');
         const fileInput = document.getElementById('fileInput');
         const uploadButton = document.getElementById('uploadButton');
@@ -214,31 +213,3 @@
             div.textContent = text;
             return div.innerHTML;
         }
-    </script>
-  <footer>
-    <div class="footer-container">
-      <div class="footer-column">
-        <h4>Quick Links</h4>
-        <a href="https://dhirajgurung.com.np/tools.html">Tools</a>
-        <a href="https://dhirajgurung.com.np/about.html">About</a>
-        <a href="https://dhirajgurung.com.np/contact.html">Contact</a>
-        <a href="https://dhirajgurung.com.np/faq.html">FAQ</a>
-      </div>
-      <div class="footer-column">
-        <h4>Important Pages</h4>
-        <a href="https://dhirajgurung.com.np/privacy-policy.html">Privacy Policy</a>
-        <a href="https://dhirajgurung.com.np/disclaimer.html">Disclaimer</a>
-        <a href="https://dhirajgurung.com.np/terms-of-use.html">Terms of Use</a>
-      </div>
-    </div>
-    <div class="footer-text">
-       <p id="copyright"></p>
-      </div> 
-  </footer>
-  <script>
-document.addEventListener("DOMContentLoaded", function () {
-  let copyrightElement = document.getElementById("copyright");
-  if (copyrightElement) {
-    copyrightElement.textContent = `© ${new Date().getFullYear()} dhirajgurung.com.np`;
-  }
-});
