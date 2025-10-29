@@ -99,6 +99,12 @@ body {
             color: #667eea;
         }
 
+        .upload-icon svg {
+            width: 40px;
+            height: 40px;
+            color: #2563eb;
+        }
+
         .upload-text {
             font-size: 18px;
             color: #333;
@@ -500,3 +506,4 @@ body {
             font-size: 14px;
             color: #b45309;
         }
+
