@@ -1,0 +1,1161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WordPress to Blogger Converter by Dhiraj Gurung</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Convert WordPress XML to Blogger instantly. Free online converter that keeps your posts, pages, and tags intact." />
+  <meta name="keywords" content="WordPress to Blogger Converter, WordPress XML Converter, Blogger Import Tool, WordPress Export to Blogger, Convert WXR to Blogger XML">
+  <meta name="author" content="Dhiraj Gurung">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph (Facebook & LinkedIn) -->
+  <meta property="og:title" content="WordPress to Blogger Converter | Free Online Tool">
+  <meta property="og:description" content="Easily convert your WordPress WXR XML exports into Blogger-compatible XML files. 100% free, secure, and browser-based.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dhirajgurung.com.np/tools/wordpress-to-blogger-converter.html">
+  <meta property="og:image" content="https://dhirajgurung.com.np/images/wordpress-to-blogger-converter.jpg">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="WordPress to Blogger Converter">
+  <meta name="twitter:description" content="Convert WordPress XML exports to Blogger format online. Free and secure tool with no server uploads.">
+  <meta name="twitter:image" content="https://dhirajgurung.com.np/images/wordpress-to-blogger-converter.jpg">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://dhirajgurung.com.np/tools/wordpress-to-blogger-converter.html">
+  
+  <link rel="stylesheet" href="https://dhirajgurung.com.np/style.css">
+  
+  <link rel="icon" href="https://dhirajgurung.com.np/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://dhirajgurung.com.np/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="https://dhirajgurung.com.np/images/favicon-192x192.png">
+  <link rel="apple-touch-icon" href="https://dhirajgurung.com.np/images/apple-touch-icon.png">
+  <link rel="manifest" href="https://dhirajgurung.com.np/site.webmanifest">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="apple-mobile-web-app-title" content="DhirajGurung">
+  <meta name="application-name" content="DhirajGurung">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org/", 
+  "@type": "BreadcrumbList", 
+  "itemListElement": [{
+    "@type": "ListItem", 
+    "position": 1, 
+    "name": "Home",
+    "item": "https://dhirajgurung.com.np/"  
+  },{
+    "@type": "ListItem", 
+    "position": 2, 
+    "name": "Tools",
+    "item": "https://dhirajgurung.com.np/tools.html"  
+  },{
+    "@type": "ListItem", 
+    "position": 3, 
+    "name": "WordPress to Blogger Converter",
+    "item": "https://dhirajgurung.com.np/tools/wordpress-to-blogger-converter.html"  
+  }]
+}
+</script>
+</head>
+<body>
+  <header>
+    
+    <a href="/">
+      <img src="https://dhirajgurung.com.np/images/logo.png" alt="DhirajGurung logo" loading="lazy">
+      Free Online Tools by Dhiraj Gurung
+    </a>
+  
+  </header>
+
+  <main>
+   
+        
+           
+                <h1>WordPress to Blogger Converter</h1>
+            
+            <p>Convert WordPress XML exports to Blogger-compatible Atom XML format</p>
+        
+        
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7,10 12,15 17,10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                    </div>
+                    <div class="upload-text">
+                        <h2>Drop your WordPress XML file here</h2>
+                        <p>or <button style="border: 0.5px solid black; margin: 5px;" type="button" id="browseBtn">browse files</button></p>
+                        <small>Supports WordPress WXR (WordPress eXtended RSS) export files</small>
+                    </div>
+                    <input type="file" id="fileInput" accept=".xml" hidden>
+                </div>
+                
+            </section>
+
+            <!-- Progress Section -->
+            <section class="progress-section" id="progressSection" style="display: none;">
+                <div class="progress-card">
+                    <div class="progress-header">
+                        <h3>Converting...</h3>
+                        <div class="spinner"></div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p class="progress-text" id="progressText">Parsing WordPress XML...</p>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-card success" id="successCard" style="display: none;">
+                    <div class="result-header">
+                        <div class="result-icon success">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22,4 12,14.01 9,11.01"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2>Conversion Successful!</h2>
+                            <p id="conversionSummary">Your WordPress content has been converted to Blogger format</p>
+                        </div>
+                    </div>
+                    <div class="result-actions">
+                        <button class="btn btn-primary" id="downloadBtn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7,10 12,15 17,10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            Download Blogger XML
+                        </button>
+                        <button style="display:  block; margin: 20px; border: 0.5px solid black;" id="resetBtn">Convert Another File</button>
+                    </div>
+                </div>
+
+                <div class="results-card error" id="errorCard" style="display: none;">
+                    <div class="result-header">
+                        <div class="result-icon error">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="15" y1="9" x2="9" y2="15"/>
+                                <line x1="9" y1="9" x2="15" y2="15"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2>Conversion Failed</h2>
+                            <p id="errorMessage">An error occurred during conversion</p>
+                        </div>
+                    </div>
+                    <div class="result-actions">
+                        <button style="display:  block; margin: 20px; border: 0.5px solid black;" id="retryBtn">Try Again</button>
+                    </div>
+                </div>
+            </section>
+            <!-- Info Section -->
+            <section class="info-section">
+                <div class="info-cards">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                                <path d="M12 17h.01"/>
+                            </svg>
+                        </div>
+                        <h2>How it works</h2>
+                        <p>Upload your WordPress XML export file, and we'll convert it to Blogger's Atom XML format while preserving your posts, pages, and metadata.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <polyline points="21,15 16,10 5,21"/>
+                            </svg>
+                        </div>
+                        <h2>What's preserved</h2>
+                        <p>Posts, pages, categories, tags, publication dates, and content formatting are all maintained during the conversion process.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <h2>Privacy focused</h2>
+                        <p>All conversion happens in your browser. Your files are never uploaded to any server, ensuring complete privacy and security.</p>
+                    </div>
+                </div>
+            </section>
+        
+    
+
+    <script>// WordPress XML Parser
+class WordPressXMLParser {
+    constructor() {
+        this.posts = [];
+        this.categories = [];
+        this.tags = [];
+        this.authors = [];
+        this.blogInfo = {
+            title: '',
+            description: '',
+            link: '',
+            language: 'en-US'
+        };
+    }
+
+    async parseFile(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            
+            reader.onload = (e) => {
+                try {
+                    const xmlContent = e.target.result;
+                    this.parseXML(xmlContent);
+                    resolve(this.getConversionData());
+                } catch (error) {
+                    reject(new Error(`Failed to parse XML: ${error.message}`));
+                }
+            };
+            
+            reader.onerror = () => {
+                reject(new Error('Failed to read the file'));
+            };
+            
+            reader.readAsText(file);
+        });
+    }
+
+    parseXML(xmlContent) {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlContent, 'text/xml');
+        
+        // Check for parsing errors
+        const parserError = xmlDoc.querySelector('parsererror');
+        if (parserError) {
+            throw new Error('Invalid XML format');
+        }
+
+        // Validate WordPress export format
+        const rssElement = xmlDoc.querySelector('rss');
+        if (!rssElement) {
+            throw new Error('Not a valid WordPress export file');
+        }
+
+        const channel = xmlDoc.querySelector('channel');
+        if (!channel) {
+            throw new Error('Invalid WordPress export structure');
+        }
+
+        // Parse blog information
+        this.parseBlogInfo(channel);
+        
+        // Parse categories and tags
+        this.parseCategories(channel);
+        this.parseTags(channel);
+        
+        // Parse authors
+        this.parseAuthors(channel);
+        
+        // Parse posts and pages
+        this.parsePosts(channel);
+    }
+
+    parseBlogInfo(channel) {
+        this.blogInfo.title = this.getElementText(channel, 'title') || 'My Blog';
+        this.blogInfo.description = this.getElementText(channel, 'description') || 'Blog Description';
+        this.blogInfo.link = this.getElementText(channel, 'link') || '';
+        this.blogInfo.language = this.getElementText(channel, 'language') || 'en-US';
+    }
+
+    parseCategories(channel) {
+        const categoryElements = channel.querySelectorAll('wp\\:category, category');
+        
+        categoryElements.forEach(cat => {
+            if (cat.tagName.toLowerCase().includes('category')) {
+                const category = {
+                    id: this.getElementText(cat, 'wp\\:term_id') || 
+                        this.getElementText(cat, 'term_id') || 
+                        this.categories.length + 1,
+                    name: this.getElementText(cat, 'wp\\:cat_name') || 
+                          this.getElementText(cat, 'cat_name') ||
+                          this.getElementText(cat, 'wp\\:category_nicename') ||
+                          this.getElementText(cat, 'category_nicename') || 'Uncategorized',
+                    slug: this.getElementText(cat, 'wp\\:category_nicename') || 
+                          this.getElementText(cat, 'category_nicename') || 'uncategorized'
+                };
+                this.categories.push(category);
+            }
+        });
+    }
+
+    parseTags(channel) {
+        const tagElements = channel.querySelectorAll('wp\\:tag, tag');
+        
+        tagElements.forEach(tag => {
+            if (tag.tagName.toLowerCase().includes('tag')) {
+                const tagObj = {
+                    id: this.getElementText(tag, 'wp\\:term_id') || 
+                        this.getElementText(tag, 'term_id') || 
+                        this.tags.length + 1,
+                    name: this.getElementText(tag, 'wp\\:tag_name') || 
+                          this.getElementText(tag, 'tag_name') ||
+                          this.getElementText(tag, 'wp\\:tag_slug') ||
+                          this.getElementText(tag, 'tag_slug') || 'tag',
+                    slug: this.getElementText(tag, 'wp\\:tag_slug') || 
+                          this.getElementText(tag, 'tag_slug') || 'tag'
+                };
+                this.tags.push(tagObj);
+            }
+        });
+    }
+
+    parseAuthors(channel) {
+        const authorElements = channel.querySelectorAll('wp\\:author, author');
+        
+        authorElements.forEach(author => {
+            const authorObj = {
+                id: this.getElementText(author, 'wp\\:author_id') || 
+                    this.getElementText(author, 'author_id') || 
+                    this.authors.length + 1,
+                login: this.getElementText(author, 'wp\\:author_login') || 
+                       this.getElementText(author, 'author_login') || 'admin',
+                email: this.getElementText(author, 'wp\\:author_email') || 
+                       this.getElementText(author, 'author_email') || '',
+                displayName: this.getElementText(author, 'wp\\:author_display_name') || 
+                           this.getElementText(author, 'author_display_name') || 'Author',
+                firstName: this.getElementText(author, 'wp\\:author_first_name') || 
+                          this.getElementText(author, 'author_first_name') || '',
+                lastName: this.getElementText(author, 'wp\\:author_last_name') || 
+                         this.getElementText(author, 'author_last_name') || ''
+            };
+            this.authors.push(authorObj);
+        });
+
+        // Ensure we have at least one author
+        if (this.authors.length === 0) {
+            this.authors.push({
+                id: 1,
+                login: 'admin',
+                email: 'admin@example.com',
+                displayName: 'Administrator',
+                firstName: '',
+                lastName: ''
+            });
+        }
+    }
+
+    parsePosts(channel) {
+        const items = channel.querySelectorAll('item');
+        
+        items.forEach((item, index) => {
+            const postType = this.getElementText(item, 'wp\\:post_type') || 
+                           this.getElementText(item, 'post_type') || 'post';
+            
+            const status = this.getElementText(item, 'wp\\:status') || 
+                          this.getElementText(item, 'status') || 'publish';
+            
+            // Only include published posts and pages
+            if (status === 'publish' && (postType === 'post' || postType === 'page')) {
+                const post = {
+                    id: this.getElementText(item, 'wp\\:post_id') || 
+                        this.getElementText(item, 'post_id') || 
+                        (index + 1),
+                    title: this.getElementText(item, 'title') || 'Untitled',
+                    content: this.getElementText(item, 'content\\:encoded') || 
+                            this.getElementText(item, 'encoded') ||
+                            this.getElementText(item, 'description') || '',
+                    excerpt: this.getElementText(item, 'excerpt\\:encoded') || 
+                            this.getElementText(item, 'excerpt') || '',
+                    publishDate: this.getElementText(item, 'wp\\:post_date') || 
+                               this.getElementText(item, 'post_date') ||
+                               this.getElementText(item, 'pubDate') || 
+                               new Date().toISOString(),
+                    author: this.getElementText(item, 'dc\\:creator') || 
+                           this.getElementText(item, 'creator') || 'admin',
+                    categories: this.getPostCategories(item),
+                    tags: this.getPostTags(item),
+                    postType: postType,
+                    link: this.getElementText(item, 'link') || '',
+                    slug: this.getElementText(item, 'wp\\:post_name') || 
+                          this.getElementText(item, 'post_name') || 
+                          this.slugify(this.getElementText(item, 'title') || 'post')
+                };
+                
+                this.posts.push(post);
+            }
+        });
+    }
+
+    getPostCategories(item) {
+        const categories = [];
+        const categoryElements = item.querySelectorAll('category[domain="category"]');
+        
+        categoryElements.forEach(cat => {
+            const categoryName = cat.textContent.trim();
+            if (categoryName) {
+                categories.push(categoryName);
+            }
+        });
+        
+        return categories.length > 0 ? categories : ['Uncategorized'];
+    }
+
+    getPostTags(item) {
+        const tags = [];
+        const tagElements = item.querySelectorAll('category[domain="post_tag"]');
+        
+        tagElements.forEach(tag => {
+            const tagName = tag.textContent.trim();
+            if (tagName) {
+                tags.push(tagName);
+            }
+        });
+        
+        return tags;
+    }
+
+    getElementText(parent, selector) {
+        const element = parent.querySelector(selector);
+        return element ? element.textContent.trim() : '';
+    }
+
+    slugify(text) {
+        return text
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/(^-|-$)/g, '');
+    }
+
+    getConversionData() {
+        return {
+            blogInfo: this.blogInfo,
+            posts: this.posts,
+            categories: this.categories,
+            tags: this.tags,
+            authors: this.authors
+        };
+    }
+}</script>
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>// Blogger XML Formatter
+class BloggerXMLFormatter {
+    constructor() {
+        this.blogId = this.generateBlogId();
+    }
+
+    generateBlogId() {
+        return Math.floor(Math.random() * 9000000000000000000) + 1000000000000000000;
+    }
+
+    formatToBloggerXML(data) {
+        const { blogInfo, posts, categories, tags, authors } = data;
+        
+        // Create the Atom XML structure
+        let xml = this.createXMLHeader();
+        xml += this.createFeedHeader(blogInfo);
+        xml += this.createAuthors(authors);
+        xml += this.createCategories(categories);
+        xml += this.createTags(tags);
+        xml += this.createPosts(posts, blogInfo);
+        xml += this.createXMLFooter();
+        
+        return xml;
+    }
+
+    createXMLHeader() {
+        return `<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet href="http://www.blogger.com/styles/atom.css" type="text/css"?>
+`;
+    }
+
+    createFeedHeader(blogInfo) {
+        const currentDate = new Date().toISOString();
+        
+        return `<feed xmlns='http://www.w3.org/2005/Atom' xmlns:openSearch='http://a9.com/-/spec/opensearchrss/1.0/' xmlns:blogger='http://schemas.google.com/blogger/2008' xmlns:georss='http://www.georss.org/georss' xmlns:gd='http://schemas.google.com/g/2005' xmlns:thr='http://purl.org/syndication/thread/1.0'>
+  <id>tag:blogger.com,1999:blog-${this.blogId}</id>
+  <updated>${currentDate}</updated>
+  <title type='text'>${this.escapeXML(blogInfo.title)}</title>
+  <subtitle type='html'>${this.escapeXML(blogInfo.description)}</subtitle>
+  <link rel='http://schemas.google.com/g/2005#feed' type='application/atom+xml' href='${this.escapeXML(blogInfo.link)}/feeds/posts/default'/>
+  <link rel='self' type='application/atom+xml' href='${this.escapeXML(blogInfo.link)}/feeds/posts/default'/>
+  <link rel='alternate' type='text/html' href='${this.escapeXML(blogInfo.link)}'/>
+  <link rel='hub' href='http://pubsubhubbub.appspot.com'/>
+  <generator version='7.00' uri='http://www.blogger.com'>Blogger</generator>
+  <openSearch:totalResults>$this.getTotalResults(posts)}</openSearch:totalResults>
+  <openSearch:startIndex>1</openSearch:startIndex>
+  <openSearch:itemsPerPage>25</openSearch:itemsPerPage>
+`;
+    }
+
+    createAuthors(authors) {
+        if (authors.length === 0) return '';
+        
+        const primaryAuthor = authors[0];
+        return `  <author>
+    <name>${this.escapeXML(primaryAuthor.displayName)}</name>
+    <email>${this.escapeXML(primaryAuthor.email)}</email>
+    <gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='16' height='16' src='http://img2.blogblog.com/img/b16-rounded.gif'/>
+  </author>
+`;
+    }
+
+    createCategories(categories) {
+        let xml = '';
+        categories.forEach(category => {
+            xml += `  <category term='${this.escapeXML(category.name)}'/>
+`;
+        });
+        return xml;
+    }
+
+    createTags(tags) {
+        let xml = '';
+        tags.forEach(tag => {
+            xml += `  <category term='${this.escapeXML(tag.name)}'/>
+`;
+        });
+        return xml;
+    }
+
+    createPosts(posts, blogInfo) {
+        let xml = '';
+        
+        posts.forEach((post, index) => {
+            xml += this.createPostEntry(post, index, blogInfo);
+        });
+        
+        return xml;
+    }
+
+    createPostEntry(post, index, blogInfo) {
+        const entryId = `tag:blogger.com,1999:blog-${this.blogId}.post-${post.id}`;
+        const publishDate = this.formatDate(post.publishDate);
+        const updateDate = publishDate; // Using publish date as update date since we don't have update info
+        const postUrl = `${blogInfo.link}/${post.publishDate.substring(0, 4)}/${post.publishDate.substring(5, 7)}/${post.slug}.html`;
+        
+        let xml = `  <entry>
+    <id>${entryId}</id>
+    <published>${publishDate}</published>
+    <updated>${updateDate}</updated>
+    <category scheme='http://www.blogger.com/atom/ns#' term='${this.escapeXML(post.postType)}'/>
+    <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/blogger/2008/kind#post'/>
+`;
+
+        // Add categories
+        post.categories.forEach(category => {
+            xml += `    <category scheme='http://www.blogger.com/atom/ns#' term='${this.escapeXML(category)}'/>
+`;
+        });
+
+        // Add tags
+        post.tags.forEach(tag => {
+            xml += `    <category scheme='http://www.blogger.com/atom/ns#' term='${this.escapeXML(tag)}'/>
+`;
+        });
+
+        xml += `    <title type='text'>${this.escapeXML(post.title)}</title>
+    <content type='html'>${this.escapeXML(this.processContent(post.content))}</content>
+    <link rel='replies' type='application/atom+xml' href='${postUrl}' title='Post Comments'/>
+    <link rel='replies' type='text/html' href='${postUrl}#comments' title='0 Comments'/>
+    <link rel='edit' type='application/atom+xml' href='${postUrl}'/>
+    <link rel='self' type='application/atom+xml' href='${postUrl}'/>
+    <link rel='alternate' type='text/html' href='${postUrl}' title='${this.escapeXML(post.title)}'/>
+    <author>
+      <name>${this.escapeXML(post.author)}</name>
+      <gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='16' height='16' src='http://img2.blogblog.com/img/b16-rounded.gif'/>
+    </author>
+    <media:thumbnail xmlns:media='http://search.yahoo.com/mrss/' url='http://img2.blogblog.com/img/b36-rounded.gif' height='72' width='72'/>
+    <thr:total>0</thr:total>
+  </entry>
+`;
+
+        return xml;
+    }
+
+    processContent(content) {
+        if (!content) return '';
+        
+        // Convert WordPress shortcodes and content
+        let processedContent = content;
+        
+        // Remove or convert WordPress-specific elements
+        processedContent = processedContent.replace(/\[caption[^\]]*\]/g, '');
+        processedContent = processedContent.replace(/\[\/caption\]/g, '');
+        processedContent = processedContent.replace(/\[gallery[^\]]*\]/g, '');
+        processedContent = processedContent.replace(/\[embed[^\]]*\]/g, '');
+        processedContent = processedContent.replace(/\[\/embed\]/g, '');
+        
+        // Clean up WordPress image classes and attributes
+        processedContent = processedContent.replace(/wp-image-\d+/g, '');
+        processedContent = processedContent.replace(/alignleft|alignright|aligncenter/g, '');
+        processedContent = processedContent.replace(/size-\w+/g, '');
+        
+        // Convert WordPress more tag
+        processedContent = processedContent.replace(/<!--more-->/g, '');
+        
+        // Ensure proper paragraph formatting
+        processedContent = processedContent.replace(/\n\n/g, '</p><p>');
+        if (processedContent && !processedContent.startsWith('<p>')) {
+            processedContent = '<p>' + processedContent + '</p>';
+        }
+        
+        return processedContent;
+    }
+
+    formatDate(dateString) {
+        try {
+            const date = new Date(dateString);
+            return date.toISOString();
+        } catch (e) {
+            return new Date().toISOString();
+        }
+    }
+
+    getTotalResults(posts) {
+        return posts.length;
+    }
+
+    escapeXML(str) {
+        if (!str) return '';
+        return str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    createXMLFooter() {
+        return '</feed>';
+    }
+}</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>// Main Converter Application
+class WordPressToBloggerConverter {
+    constructor() {
+        this.parser = new WordPressXMLParser();
+        this.formatter = new BloggerXMLFormatter();
+        this.initializeEventListeners();
+        this.convertedXML = null;
+        this.originalFileName = '';
+    }
+
+    initializeEventListeners() {
+        // File input elements
+        const fileInput = document.getElementById('fileInput');
+        const uploadArea = document.getElementById('uploadArea');
+        const browseBtn = document.getElementById('browseBtn');
+        
+        // Button elements
+        const downloadBtn = document.getElementById('downloadBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const retryBtn = document.getElementById('retryBtn');
+
+        // File input change
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                this.handleFileSelection(e.target.files[0]);
+            }
+        });
+
+        // Browse button click
+        browseBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Upload area click
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Drag and drop functionality
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+        });
+
+        uploadArea.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            if (!uploadArea.contains(e.relatedTarget)) {
+                uploadArea.classList.remove('drag-over');
+            }
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                const file = files[0];
+                if (file.name.toLowerCase().endsWith('.xml')) {
+                    fileInput.files = files;
+                    this.handleFileSelection(file);
+                } else {
+                    this.showError('Please select a valid XML file.');
+                }
+            }
+        });
+
+        // Button event listeners
+        downloadBtn.addEventListener('click', () => {
+            this.downloadConvertedFile();
+        });
+
+        resetBtn.addEventListener('click', () => {
+            this.resetConverter();
+        });
+
+        retryBtn.addEventListener('click', () => {
+            this.resetConverter();
+        });
+    }
+
+    async handleFileSelection(file) {
+        // Validate file
+        if (!file.name.toLowerCase().endsWith('.xml')) {
+            this.showError('Please select a valid XML file.');
+            return;
+        }
+
+        if (file.size > 50 * 1024 * 1024) { // 50MB limit
+            this.showError('File size too large. Please select a file smaller than 50MB.');
+            return;
+        }
+
+        this.originalFileName = file.name;
+        this.showProgress();
+        
+        try {
+            await this.convertFile(file);
+        } catch (error) {
+            this.showError(error.message);
+        }
+    }
+
+    async convertFile(file) {
+        this.updateProgress(10, 'Reading WordPress XML file...');
+        
+        try {
+            // Parse WordPress XML
+            this.updateProgress(30, 'Parsing WordPress content...');
+            const conversionData = await this.parser.parseFile(file);
+            
+            this.updateProgress(60, 'Converting to Blogger format...');
+            
+            // Format to Blogger XML
+            this.convertedXML = this.formatter.formatToBloggerXML(conversionData);
+            
+            this.updateProgress(90, 'Finalizing conversion...');
+            
+            // Simulate processing time for better UX
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            this.updateProgress(100, 'Conversion complete!');
+            
+            // Show success
+            setTimeout(() => {
+                this.showSuccess(conversionData);
+            }, 500);
+            
+        } catch (error) {
+            throw new Error(`Conversion failed: ${error.message}`);
+        }
+    }
+
+    showProgress() {
+        document.getElementById('uploadArea').style.display = 'none';
+        document.getElementById('progressSection').style.display = 'block';
+        document.getElementById('resultsSection').style.display = 'none';
+    }
+
+    updateProgress(percentage, text) {
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        
+        progressFill.style.width = `${percentage}%`;
+        progressText.textContent = text;
+    }
+
+    showSuccess(conversionData) {
+        document.getElementById('progressSection').style.display = 'none';
+        document.getElementById('resultsSection').style.display = 'block';
+        document.getElementById('successCard').style.display = 'block';
+        document.getElementById('errorCard').style.display = 'none';
+        
+        // Update conversion summary
+        const summary = document.getElementById('conversionSummary');
+        const postCount = conversionData.posts.length;
+        const categoryCount = conversionData.categories.length;
+        const tagCount = conversionData.tags.length;
+        
+        summary.textContent = `Successfully converted ${postCount} posts with ${categoryCount} categories and ${tagCount} tags to Blogger format.`;
+    }
+
+    showError(message) {
+        document.getElementById('progressSection').style.display = 'none';
+        document.getElementById('resultsSection').style.display = 'block';
+        document.getElementById('successCard').style.display = 'none';
+        document.getElementById('errorCard').style.display = 'block';
+        
+        document.getElementById('errorMessage').textContent = message;
+    }
+
+    downloadConvertedFile() {
+        if (!this.convertedXML) {
+            this.showError('No converted file available for download.');
+            return;
+        }
+
+        const blob = new Blob([this.convertedXML], { type: 'application/xml' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = this.getDownloadFileName();
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        
+        URL.revokeObjectURL(url);
+    }
+
+    getDownloadFileName() {
+        const baseName = this.originalFileName.replace(/\.xml$/i, '');
+        const timestamp = new Date().toISOString().slice(0, 10);
+        return `${baseName}-blogger-${timestamp}.xml`;
+    }
+
+    resetConverter() {
+        // Reset form and UI
+        document.getElementById('fileInput').value = '';
+        document.getElementById('uploadArea').style.display = 'block';
+        document.getElementById('progressSection').style.display = 'none';
+        document.getElementById('resultsSection').style.display = 'none';
+        
+        // Reset data
+        this.convertedXML = null;
+        this.originalFileName = '';
+        this.parser = new WordPressXMLParser();
+        this.formatter = new BloggerXMLFormatter();
+        
+        // Reset upload area state
+        document.getElementById('uploadArea').classList.remove('drag-over');
+    }
+}
+
+// Initialize the converter when the DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new WordPressToBloggerConverter();
+});</script>
+  
+
+  <h2>WordPress to Blogger Converter – Free Online Tool to Move Your Blog Seamlessly</h2>
+  <p>Migrating from <strong>WordPress to Blogger</strong> can be a technical headache — especially when you’re dealing with XML files, post formatting, tags, and categories. That’s exactly why the <strong>WordPress to Blogger Converter</strong> exists.</p>
+  <p>This <strong>free online tool</strong> instantly converts your <strong>WordPress WXR export file (.xml)</strong> into a <strong>Blogger-compatible Atom XML</strong> format — without any installation, login, or upload to a server. It’s fast, private, and designed for bloggers who just want to migrate without losing their years of content.</p>
+  <p>Whether you’re switching platforms for simplicity, cost-saving, or Google integration, this tool gives you a <em>one-click bridge between WordPress and Blogger</em>.</p>
+<div style="display: flex; justify-content: center; padding: 20px auto;">
+            <img style="width: 100%; max-width: 600px; height: auto;" src="https://dhirajgurung.com.np/images/wordpress-to-blogger-converter.jpg"  title="WordPress To Blogger Converter" alt="Convert WordPress XML to Blogger XML" loading="lazy">
+            </div>
+  <h2>What Is a WordPress to Blogger Converter?</h2>
+  <p>The <strong>WordPress to Blogger Converter</strong> is an online utility that transforms your <strong>WordPress export file (WXR)</strong> into a format that <strong>Blogger can understand and import</strong>.</p>
+  <p>When you export your WordPress site, you get an XML file containing your:</p>
+  <ul>
+    <li>Blog posts</li>
+    <li>Pages</li>
+    <li>Categories</li>
+    <li>Tags</li>
+    <li>Comments</li>
+    <li>Publication dates</li>
+    <li>Authors</li>
+  </ul>
+  <p>However, <strong>Blogger doesn’t accept the WXR format directly</strong>. It uses <strong>Atom XML</strong>, which follows a different structure. This tool bridges that gap — converting every post, tag, and category into Blogger’s layout, so you can <strong>import your entire WordPress blog into Blogger</strong> in a few minutes.</p>
+
+  <h2>How the Tool Works (Step-by-Step)</h2>
+  <p>Using this tool is incredibly simple, even if you’re not tech-savvy. Here’s how you can migrate your blog in a few clicks:</p>
+  <ol>
+    <li><strong>Export from WordPress</strong>
+      <p>Log into your WordPress dashboard. Go to <em>Tools → Export</em>. Choose “All content” and download the <strong>.xml file</strong>. This file contains all your posts, pages, and metadata.</p>
+    </li>
+    <li><strong>Open the WP to Blogger Converter</strong>
+      <p><a href="http://dhirajgurung.com.np/wordpress-to-blogger-converter.html" target="_blank" rel="noopener noreferrer">Visit the converter’s page</a>.</p>
+    </li>
+    <li><strong>Upload Your WordPress XML File</strong>
+      <p>Drag and drop your exported <code>.xml</code> file or click “Browse Files.” The tool parses the content directly in your browser — <strong>no server upload</strong>.</p>
+    </li>
+    <li><strong>Automatic Conversion Begins</strong>
+      <p>The converter reads your file structure, maps WordPress elements like <code>&lt;wp:post&gt;</code> and <code>&lt;wp:category&gt;</code> into Blogger’s Atom format, and shows a progress bar while transforming the file.</p>
+    </li>
+    <li><strong>Download Blogger-Compatible XML</strong>
+      <p>Once completed, click “Download Blogger XML.” You’ll get a <code>.xml</code> file ready for import into Blogger.</p>
+    </li>
+    <li><strong>Import into Blogger</strong>
+      <p>Go to your Blogger dashboard → <em>Settings → Import Content</em>. Upload the converted XML file. Done! All your posts and pages will appear in Blogger automatically.</p>
+    </li>
+  </ol>
+
+  <h2>What Does the Converter Preserve?</h2>
+  <p>Migrating doesn’t mean losing your hard work. The <strong>WordPress to Blogger Converter</strong> ensures that most of your essential data transfers accurately. Here’s what it keeps:</p>
+  <ul>
+    <li>✅ <strong>Posts and Pages</strong> – Every published post or page from WordPress is included.</li>
+    <li>✅ <strong>Titles and Content</strong> – Your blog titles, paragraphs, lists, images, and HTML formatting remain intact.</li>
+    <li>✅ <strong>Categories and Tags</strong> – WordPress taxonomies are transformed into Blogger labels.</li>
+    <li>✅ <strong>Publish Dates</strong> – Posts keep their original publication dates.</li>
+    <li>✅ <strong>Authors</strong> – The tool retains author names (great for multi-author blogs).</li>
+    <li>✅ <strong>Permalink Slugs</strong> – Each post slug is adapted to Blogger’s URL structure.</li>
+    <li>✅ <strong>Post Types</strong> – Both posts and pages are handled intelligently.</li>
+  </ul>
+  <p>However, note that <strong>WordPress-hosted images won’t move automatically.</strong> They’ll still be linked to your WordPress media URLs. To migrate them fully, you can reupload your images to Blogger or Google Photos later.</p>
+
+  <h2>100% Secure and Private — Conversion Happens in Your Browser</h2>
+  <p>Unlike other online converters, this tool doesn’t upload your file anywhere. The <strong>entire conversion process runs inside your browser</strong> using JavaScript.</p>
+  <p>That means:</p>
+  <ul>
+    <li>Your XML file <strong>never leaves your device</strong>.</li>
+    <li>There’s <strong>no data collection</strong>, <strong>no account signup</strong>, and <strong>no tracking</strong>.</li>
+    <li>It’s suitable even for confidential or client sites.</li>
+  </ul>
+  <p>This <strong>privacy-first approach</strong> makes it perfect for developers, freelancers, and independent bloggers who value control over their data.</p>
+
+  <h2>Why Move from WordPress to Blogger?</h2>
+  <p>While <strong>WordPress.org</strong> is powerful, it often requires hosting fees, maintenance, and security management. <strong>Blogger</strong>, on the other hand, is:</p>
+  <ul>
+    <li><strong>Free and reliable</strong> (powered by Google)</li>
+    <li><strong>Simpler to manage</strong></li>
+    <li><strong>Integrated with Google Search, Adsense, and Analytics</strong></li>
+    <li><strong>Low-maintenance</strong>, with no plugin or server worries</li>
+  </ul>
+  <p>If your goal is to blog casually, focus on writing, or monetize with Google Ads easily, <strong>Blogger offers a clean alternative</strong> — and this converter makes switching effortless.</p>
+
+  <h2>How the Conversion Works Technically (Simplified)</h2>
+  <p>The tool uses a <strong>two-step JavaScript engine</strong> behind the scenes:</p>
+  <ol>
+    <li><strong>WordPress XML Parser</strong>
+      <p>Reads your WXR structure, extracts posts, pages, authors, categories, and tags, cleans unwanted shortcodes (like <code>[caption]</code>, <code>[gallery]</code>, <code>[embed]</code>), and rebuilds readable post content.</p>
+    </li>
+    <li><strong>Blogger XML Formatter</strong>
+      <p>Wraps data into <em>Atom XML structure</em> (used by Blogger), generates <code>&lt;feed&gt;</code>, <code>&lt;entry&gt;</code>, and <code>&lt;category&gt;</code> tags, adds <code>&lt;author&gt;</code>, <code>&lt;published&gt;</code>, <code>&lt;updated&gt;</code>, and other metadata, and ensures your Blogger import file is fully compliant with Blogger’s schema.</p>
+    </li>
+  </ol>
+  <p>This ensures <strong>zero broken imports</strong> and a <strong>smooth transfer</strong> even for large blogs.</p>
+
+  <h2>Example: Before and After Conversion</h2>
+  <p>Here’s a short example to illustrate the difference between a WordPress export snippet and the resulting Blogger Atom entry.</p>
+  <p><strong>WordPress XML snippet:</strong></p>
+  <pre style="background:#f4f4f4; padding:12px; overflow:auto; border-radius:6px; margin-bottom:12px;"><code>&lt;item&gt;
+  &lt;title&gt;Hello World&lt;/title&gt;
+  &lt;link&gt;https://mywordpressblog.com/hello-world/&lt;/link&gt;
+  &lt;wp:post_date&gt;2024-03-15 12:00:00&lt;/wp:post_date&gt;
+  &lt;content:encoded&gt;&lt;![CDATA[Welcome to my first post!]]&gt;&lt;/content:encoded&gt;
+  &lt;wp:post_type&gt;post&lt;/wp:post_type&gt;
+&lt;/item&gt;</code></pre>
+  <p><strong>Converted Blogger XML snippet:</strong></p>
+  <pre style="background:#f4f4f4; padding:12px; overflow:auto; border-radius:6px; margin-bottom:16px;"><code>&lt;entry&gt;
+  &lt;title type='text'&gt;Hello World&lt;/title&gt;
+  &lt;published&gt;2024-03-15T12:00:00Z&lt;/published&gt;
+  &lt;updated&gt;2024-03-15T12:00:00Z&lt;/updated&gt;
+  &lt;content type='html'&gt;Welcome to my first post!&lt;/content&gt;
+  &lt;category term='post'/&gt;
+&lt;/entry&gt;</code></pre>
+
+  <h2>Features That Make This Tool Stand Out</h2>
+  <ul>
+    <li><strong>One-Click Conversion:</strong> Upload → Convert → Download</li>
+    <li><strong>Instant Processing:</strong> Converts even large files in seconds</li>
+    <li><strong>Client-Side Conversion:</strong> No upload, no data sharing</li>
+    <li><strong>Preserves Categories &amp; Tags:</strong> Keeps your SEO structure intact</li>
+    <li><strong>Smart Parsing:</strong> Detects posts, pages, and custom taxonomies automatically</li>
+    <li><strong>Error Detection:</strong> Alerts if your file is invalid or corrupted</li>
+    <li><strong>Compatible Output:</strong> 100% import-ready for Blogger</li>
+  </ul>
+
+  <h2>Tips for a Successful Migration</h2>
+  <ol>
+    <li>Check Your WordPress File – Make sure you exported “All Content.”</li>
+    <li>Keep Backup Copies – Save your original WXR file safely before converting.</li>
+    <li>Test the Output – Import the converted XML into a test Blogger blog first.</li>
+    <li>Fix Image Links – Use Blogger’s image uploader for long-term hosting.</li>
+    <li>Redirect Old Links – If you had a custom domain on WordPress, add redirects to maintain SEO.</li>
+  </ol>
+
+  <h2>SEO Benefits of Migrating Correctly</h2>
+  <p>Using a proper converter helps maintain your <strong>SEO value</strong>. By keeping slugs, dates, and categories intact, you preserve:</p>
+  <ul>
+    <li>Internal link structure</li>
+    <li>Search engine visibility</li>
+    <li>Indexed URLs consistency</li>
+  </ul>
+  <p>This tool ensures that your migration doesn’t cost you your hard-earned rankings on Google or Bing.</p>
+
+  <h2>Frequently Asked Questions (FAQ)</h2>
+  <p><strong>Q1: What is a WXR file in WordPress?</strong><br>
+  A WXR (WordPress eXtended RSS) file is an XML file generated when you export content from WordPress. It includes all your posts, pages, categories, and metadata.</p>
+
+  <p><strong>Q2: Is the WordPress to Blogger Converter free?</strong><br>
+  Yes — it’s 100% free, with no hidden fees or limitations.</p>
+
+  <p><strong>Q3: Will my images move automatically to Blogger?</strong><br>
+  No. The converter keeps your image links intact but doesn’t transfer media files. You can manually reupload them later if needed.</p>
+
+  <p><strong>Q4: Can I use it on mobile?</strong><br>
+  Yes! The tool works on any modern browser, including Chrome, Edge, Firefox, or Safari — on both desktop and mobile.</p>
+
+  <p><strong>Q5: What if my file is large?</strong><br>
+  Since everything happens locally, even large XML files (tens of MBs) can be processed without upload delays.</p>
+
+  <p><strong>Q6: Does it work for both WordPress.com and WordPress.org sites?</strong><br>
+  Absolutely! You can export from either version, and the converter will handle it seamlessly.</p>
+
+  <h2>Final Thoughts — Move from WordPress to Blogger Effortlessly</h2>
+  <p>Migrating between blogging platforms can seem intimidating, but the <strong>WordPress to Blogger Converter</strong> turns it into a simple, safe, and fast process.</p>
+  <p>With one upload and one click, your years of blog content transform into a Blogger-friendly format — ready to publish, edit, and grow again.</p>
+  <p>Whether you’re simplifying your workflow, reducing hosting costs, or embracing Google’s free blogging platform, this tool is your <strong>bridge between WordPress and Blogger</strong>.</p>
+  <p style="margin-bottom:20px;"><a href="http://dhirajgurung.com.np/wordpress-to-blogger-converter.html" target="_blank" rel="noopener noreferrer" style="color:#000000; text-decoration:underline;">Try it now: WP to Blogger Converter</a></p>
+   <h3>Related Tools:</h3>
+   <ul>
+    <li><a href="https://dhirajgurung.com.np/tools/jpg-to-pdf.html" target="_blank" rel="noopener noreferrer" style="color:#000000; text-decoration:underline;">JPG to PDF Converter</a> </li><br>
+    <li><a href="https://dhirajgurung.com.np/tools/image-to-text.html" target="_blank" rel="noopener noreferrer" style="color:#000000; text-decoration:underline;">Image to Text Converter</a> </li>
+   </ul>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h4>Quick Links</h4>
+        <a href="https://dhirajgurung.com.np/tools.html">Tools</a>
+        <a href="https://dhirajgurung.com.np/about.html">About</a>
+        <a href="https://dhirajgurung.com.np/contact.html">Contact</a>
+        <a href="https://dhirajgurung.com.np/faq.html">FAQ</a>
+      </div>
+      <div class="footer-column">
+        <h4>Important Pages</h4>
+        <a href="https://dhirajgurung.com.np/privacy-policy.html">Privacy Policy</a>
+        <a href="https://dhirajgurung.com.np/disclaimer.html">Disclaimer</a>
+        <a href="https://dhirajgurung.com.np/terms-of-use.html">Terms of Use</a>
+      </div>
+    </div>
+    <div class="footer-text">
+       <p id="copyright"></p>
+      </div> 
+  </footer>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  let copyrightElement = document.getElementById("copyright");
+  if (copyrightElement) {
+    copyrightElement.textContent = `© ${new Date().getFullYear()} dhirajgurung.com.np`;
+  }
+});
+</script>
+</body>
+</html>
