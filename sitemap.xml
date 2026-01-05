@@ -1,67 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
-
+		<!--	created with www.mysitemapgenerator.com	-->
+		<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-  <loc>https://dhirajgurung.com.np/</loc>
-  <lastmod>2026-01-05T03:08:05+00:00</lastmod>
-  <priority>1.00</priority>
+	<loc>https://dhirajgurung.com.np/</loc>
+	<lastmod>2026-01-05T04:13:43+01:00</lastmod>
+	<priority>1.0</priority>
 </url>
 <url>
-  <loc>https://dhirajgurung.com.np/tools/jpg-to-pdf.html</loc>
-  <lastmod>2026-01-05T03:08:05+00:00</lastmod>
-  <priority>0.80</priority>
+	<loc>https://dhirajgurung.com.np/tools/jpg-to-pdf.html</loc>
+	<lastmod>2026-01-05T04:13:43+01:00</lastmod>
+	<priority>0.8</priority>
 </url>
 <url>
-  <loc>https://dhirajgurung.com.np/tools.html</loc>
-  <lastmod>2026-01-05T03:08:05+00:00</lastmod>
-  <priority>0.80</priority>
+	<loc>https://dhirajgurung.com.np/tools.html</loc>
+	<lastmod>2026-01-05T04:13:43+01:00</lastmod>
+	<priority>1.0</priority>
 </url>
 <url>
-  <loc>https://dhirajgurung.com.np/contact.html</loc>
-  <lastmod>2026-01-05T03:08:05+00:00</lastmod>
-  <priority>0.80</priority>
+	<loc>https://dhirajgurung.com.np/contact.html</loc>
+	<lastmod>2026-01-05T04:13:43+01:00</lastmod>
+	<priority>1.0</priority>
 </url>
 <url>
-  <loc>https://dhirajgurung.com.np/about.html</loc>
-  <lastmod>2026-01-05T03:08:05+00:00</lastmod>
-  <priority>0.80</priority>
+	<loc>https://dhirajgurung.com.np/about.html</loc>
+	<lastmod>2026-01-05T04:13:43+01:00</lastmod>
+	<priority>1.0</priority>
 </url>
 <url>
-  <loc>https://dhirajgurung.com.np/faq.html</loc>
-  <lastmod>2026-01-05T03:08:05+00:00</lastmod>
-  <priority>0.80</priority>
+	<loc>https://dhirajgurung.com.np/faq.html</loc>
+	<lastmod>2026-01-05T04:13:43+01:00</lastmod>
+	<priority>1.0</priority>
 </url>
 <url>
-  <loc>https://dhirajgurung.com.np/privacy-policy.html</loc>
-  <lastmod>2026-01-05T03:08:05+00:00</lastmod>
-  <priority>0.80</priority>
+	<loc>https://dhirajgurung.com.np/privacy-policy.html</loc>
+	<lastmod>2026-01-05T04:13:43+01:00</lastmod>
+	<priority>1.0</priority>
 </url>
 <url>
-  <loc>https://dhirajgurung.com.np/disclaimer.html</loc>
-  <lastmod>2026-01-05T03:08:05+00:00</lastmod>
-  <priority>0.80</priority>
+	<loc>https://dhirajgurung.com.np/disclaimer.html</loc>
+	<lastmod>2026-01-05T04:13:43+01:00</lastmod>
+	<priority>1.0</priority>
 </url>
 <url>
-  <loc>https://dhirajgurung.com.np/terms-of-use.html</loc>
-  <lastmod>2026-01-05T03:08:05+00:00</lastmod>
-  <priority>0.80</priority>
+	<loc>https://dhirajgurung.com.np/terms-of-use.html</loc>
+	<lastmod>2026-01-05T04:13:43+01:00</lastmod>
+	<priority>1.0</priority>
 </url>
 <url>
-  <loc>https://dhirajgurung.com.np/tools/image-to-text.html</loc>
-  <lastmod>2026-01-05T03:08:05+00:00</lastmod>
-  <priority>0.64</priority>
+	<loc>https://dhirajgurung.com.np/tools/image-to-text.html</loc>
+	<lastmod>2026-01-05T04:13:45+01:00</lastmod>
+	<priority>0.8</priority>
 </url>
 <url>
-  <loc>https://dhirajgurung.com.np/tools/wordpress-to-blogger-converter.html</loc>
-  <lastmod>2026-01-05T03:08:05+00:00</lastmod>
-  <priority>0.64</priority>
+	<loc>https://dhirajgurung.com.np/tools/wordpress-to-blogger-converter.html</loc>
+	<lastmod>2026-01-05T04:13:45+01:00</lastmod>
+	<priority>0.8</priority>
 </url>
-
-
+<url>
+	<loc>https://dhirajgurung.com.np/blogspot-games.html</loc>
+	<lastmod>2026-01-05T04:13:45+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
 </urlset>
